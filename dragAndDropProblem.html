@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <style>
+        * {
+            box-sizing: border-box
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        aside {
+            float: left;
+            width: 30%;
+            height: 100%;
+            padding: 15px;
+        }
+
+        section {
+            float: left;
+            width: 69.9%;
+            height: 100%;
+            border-left: 1px solid black;
+            padding: 35px;
+        }
+
+        section > div {
+            border: none;
+            width: auto;
+            overflow: hidden;
+
+        }
+        div {
+            border: 1px solid black;
+        }
+
+        section > div > div {
+            background: red;
+            float: left;
+            width: 75px;
+            height: 75px;
+
+        }
+        aside > div {
+            margin: 15px;
+            border: 1px solid black;
+            
+        }
+        .drag{
+            background: greenyellow;
+        }
+        #drag1 {
+            width: 150px;
+            height: 150px;
+        }
+        #drag2 {
+            width: 150px;
+            height: 75px;
+        }
+        #drag3 {
+            width: 75px;
+            height: 150px;
+        }
+        #drag4 {
+            width: 75px;
+            height: 75px;
+        }
+    </style>
+</head>
+
+<body>
+    <aside>
+        <div id="drag1" class="drag" draggable="true" ondragstart="drag(event)"></div>
+
+        <div id="drag2" class="drag" draggable="true" ondragstart="drag(event)"></div>
+
+        <div id="drag3" class="drag" draggable="true" ondragstart="drag(event)"></div>
+        <div id="drag4" class="drag" draggable="true" ondragstart="drag(event)"></div>
+
+    </aside>
+    <section>
+        <div>
+            <div id="div11" ondrop="drop(event, 11)" ondragover="allowDrop(event)"></div>
+            <div id="div12" ondrop="drop(event, 12)" ondragover="allowDrop(event)"></div>
+            <div id="div13" ondrop="drop(event, 13)" ondragover="allowDrop(event)"></div>
+            <div id="div14" ondrop="drop(event, 14)" ondragover="allowDrop(event)"></div>
+        </div>
+        <div>
+            <div id="div21" ondrop="drop(event, 21)" ondragover="allowDrop(event)"></div>
+            <div id="div22" ondrop="drop(event, 22)" ondragover="allowDrop(event)"></div>
+            <div id="div23" ondrop="drop(event, 23)" ondragover="allowDrop(event)"></div>
+            <div id="div24" ondrop="drop(event, 24)" ondragover="allowDrop(event)"></div>
+
+        </div>
+    </section>
+    <script>
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+        function drop(ev, x) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            var y = (x < 20) ? 0 : -10
+            var z = (x == 14 || x == 24) ? -1 : 0
+            if(data == "drag1") {
+                document.getElementById("div"+(x+y+z)).appendChild(document.getElementById(data));
+                document.getElementById(data).position = "absolute"
+                
+                
+            }
+            if(data == "drag2") {
+                document.getElementById("div" + (x)).style.backgroundColor = "green"
+                document.getElementById("div" + (x)).style.border = "none"
+                document.getElementById("div" + (x)).ondragover = null
+                document.getElementById("div" + (x+z)).style.backgroundColor = "green"
+                document.getElementById("div" + (x+z)).style.border = "none"
+                document.getElementById("div" + (x+z)).ondragover = null
+
+            }
+            if(data == "drag3") {
+                document.getElementById("div" + (x)).style.backgroundColor = "green"
+                document.getElementById("div" + (x)).style.border = "none"
+                document.getElementById("div" + (x)).ondragover = null
+                document.getElementById("div" + (x+y)).style.backgroundColor = "green"
+                document.getElementById("div" + (x+y)).style.border = "none"
+                document.getElementById("div" + (x+y)).ondragover = null
+            }
+            if(data == "drag4") {
+                document.getElementById("div" + (x)).style.backgroundColor = "green"
+                document.getElementById("div" + (x)).style.border = "none"
+                document.getElementById("div" + (x)).ondragover = null
+                
+            }
+            console.log(ev);
+            
+            ev.target
+        }
+
+    </script>
+
+</body>
+
+</html>
+
